@@ -1,5 +1,5 @@
-import * as PDFGeneratorAPI from 'pdf-generator-api-client';
-import jwt from 'jsonwebtoken';
+var PDFGeneratorAPI =require('pdf-generator-api-client')
+var jwt =require( 'jsonwebtoken')
 //import {getSecret} from 'wix-secrets-backend';
 
 /**
@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
  * @param {Object} mergeData
  * @return {Promise<unknown>}
  */
-export async function generatePDFUrl(workspaceIdentifier, templateId, mergeData) {
+async function generatePDFUrl(workspaceIdentifier, templateId, mergeData) {
   return generatePDF(workspaceIdentifier, templateId, mergeData, {"output": "url"});
 }
 
@@ -22,7 +22,7 @@ export async function generatePDFUrl(workspaceIdentifier, templateId, mergeData)
  * @param {Object} mergeData
  * @return {Promise<unknown>}
  */
-export async function generatePDFBinary(workspaceIdentifier, templateId, mergeData) {
+async function generatePDFBinary(workspaceIdentifier, templateId, mergeData) {
   return generatePDF(workspaceIdentifier, templateId, mergeData, {"output": "I"});
 }
 
@@ -36,7 +36,7 @@ export async function generatePDFBinary(workspaceIdentifier, templateId, mergeDa
  * @param {Object} mergeOptions
  * @return {Promise<unknown>}
  */
-export async function generatePDF(workspaceIdentifier, templateId, mergeData, mergeOptions) {
+async function generatePDF(workspaceIdentifier, templateId, mergeData, mergeOptions) {
   const client = await createClient(workspaceIdentifier);
 
   return new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ export async function generatePDF(workspaceIdentifier, templateId, mergeData, me
  * @param {Object} previewData
  * @return {Promise<unknown>}
  */
-export async function getEditorUrl(workspaceIdentifier, templateId, previewData) {
+async function getEditorUrl(workspaceIdentifier, templateId, previewData) {
   const client = await createClient(workspaceIdentifier);
 
   return new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@ export async function getEditorUrl(workspaceIdentifier, templateId, previewData)
  * @param {String} workspaceIdentifier
  * @return {Promise<unknown>}
  */
-export async function getTemplates(workspaceIdentifier) {
+async function getTemplates(workspaceIdentifier) {
   const client = await createClient(workspaceIdentifier);
 
   return new Promise((resolve, reject) => {

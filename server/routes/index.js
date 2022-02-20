@@ -8,7 +8,8 @@ router.get('/', function(req, res, next) {
 
 /* Generate PDF and return the link */
 router.get('/pdf', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send(req.body)
+  //res.render('index', { title: 'Express' });
 });
 
 
