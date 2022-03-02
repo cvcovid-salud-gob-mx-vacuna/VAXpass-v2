@@ -1,5 +1,5 @@
 var PDFGeneratorAPI =require('pdf-generator-api-client')
-var jwt =require( 'jsonwebtoken')
+var jwt =require( 'jsonwebtoken');
 //import {getSecret} from 'wix-secrets-backend';
 
 /**
@@ -10,8 +10,11 @@ var jwt =require( 'jsonwebtoken')
  * @param {Object} mergeData
  * @return {Promise<unknown>}
  */
-async function generatePDFUrl(workspaceIdentifier, templateId, mergeData) {
-  return generatePDF(workspaceIdentifier, templateId, mergeData, {"output": "url"});
+
+module.exports = {
+   generatePDFUrl : async (workspaceIdentifier, templateId, mergeData) => {
+    return generatePDF(workspaceIdentifier, templateId, mergeData, {"output": "url"});
+  }
 }
 
 /**
@@ -38,10 +41,10 @@ async function generatePDFBinary(workspaceIdentifier, templateId, mergeData) {
  */
 async function generatePDF(workspaceIdentifier, templateId, mergeData, mergeOptions) {
   const client = await createClient(workspaceIdentifier);
-
   return new Promise((resolve, reject) => {
     client.mergeTemplate(templateId, mergeData, mergeOptions, (error, data, response) => {
       if (error) {
+        console.log(error)
         reject(error);
       } else {
         resolve(data);
@@ -58,7 +61,7 @@ async function generatePDF(workspaceIdentifier, templateId, mergeData, mergeOpti
  * @param {Object} previewData
  * @return {Promise<unknown>}
  */
-async function getEditorUrl(workspaceIdentifier, templateId, previewData) {
+ async function getEditorUrl(workspaceIdentifier, templateId, previewData) {
   const client = await createClient(workspaceIdentifier);
 
   return new Promise((resolve, reject) => {
@@ -102,7 +105,10 @@ async function createClient(workspaceIdentifier) {
   let JSONWebTokenAuth = defaultClient.authentications['JSONWebTokenAuth'];
 
   JSONWebTokenAuth.accessToken = await createJSONWebToken(workspaceIdentifier) //"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI2NTQ0NzRkYWE4NTZiZjMxM2VlMTdjNzZiOTIwMzk1NTM3YjZjMDRkMGU0NWMzNGE3MmE1YTQwNzQ2ZTc3NzA4Iiwic3ViIjoic2FtQGNvbnN1bHRvcmlhZXhwYXQuY29tIiwiZXhwIjoxNjQ0NTk1MTczfQ.GbwCLA3bMxSmHLcXlBDCGk6zQHkbXJQl77fuGHDUD24"
-  return new PDFGeneratorAPI.TemplatesApi();
+  return new PDFGeneratorAPI.DocumentsApi();
+
+  //var d= new PDFGeneratorAPI.DocumentsApi()
+  //return d
 }
 
 /**

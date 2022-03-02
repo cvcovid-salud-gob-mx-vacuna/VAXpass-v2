@@ -11,13 +11,73 @@
         <link href="bootstrap_theme/bootstrap.css" rel="stylesheet" type="text/css"/>
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="blocks.css"/>
-        <link href="style.css" rel="stylesheet"/>
     </head>
     <body>
-        <!-- Bootstrap core JavaScript
-    ================================================== -->
-      
 
+        <script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+
+        <script>
+               
+      var uuid = function () {
+        var ret = '',
+          value;
+        for (var i = 0; i < 32; i++) {
+          value = (rand() * 16) | 0;
+          // Insert the hypens
+          if (i > 4 && i < 21 && !(i % 4)) {
+            ret += '-';
+          }
+          // Add the next random character
+          ret += (i === 12 ? 4 : i === 16 ? (value & 3) | 8 : value).toString(
+            16
+          );
+        }
+        return ret;
+      };
+
+      var rand = function () {
+        return Math.random();
+      };
+
+      const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+      const getRandomLot = (prefix) => {
+        return zeroPad(parseInt(Math.random() * 10000), 4);
+      };
+
+                $(document).ready(() => {
+                    $("#generatePreview").on("click", () =>{
+
+                    $('#generatePreview').label = 'Working...';
+                    var u1= uuid().substr(0,10)
+                    var u2=uuid() 
+                    let vaccinationData = {
+                        id: u1,
+                        record_locator: u2,
+                        CURP: $('#passport'). val(),
+                        full_name: $('#name').val(),
+                        dose_1: $('#dose1date').val(),
+                        dose_2: $('#dose2date').val(),
+                        lot_1:'LM-' + getRandomLot(),
+                        lot_2: 'LK-' + getRandomLot(),
+                        marca: $('#marca').val(),
+                        digital_stamp: u2,
+                        issueDate: $("#issueDateStamp").val(),
+                        vaxcenter: $("#vaxcenter").val()
+                    };
+
+                    $.post( "/pdf?workspace=sam@consultoriaexpat.com&template=390961", vaccinationData, function( result ) {
+                        console.log(JSON.stringify(result))
+                    }, "json");
+
+                    return false;
+            })
+
+        })
+        </script>
         <section class="bg-light pb-3 pt-1 mt-0">
             <div class="container ">
                 <div class="bg-white p-4 shadow"> 
@@ -38,7 +98,7 @@
                             </div>                             
                         </div>
                         <div class="col-md-6">
-                            <select class="form-control ">
+                            <select id="country" class="form-control ">
                                 <option value="XX">Country Of Citizenship</option>                                 
                                 <option value="AF">Afghanistan</option>
                                 <option value="AX">Åland Islands</option>
@@ -307,7 +367,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="dose2date" class="form-label">Dose 2 Date</label>
-                            <input type="text" class="form-control" id="dose1date" value="2022-01-04"/>
+                            <input type="text" class="form-control" id="dose2date" value="2022-01-04"/>
                         </div>
                         <div class="col-md-4">
                             <label for="issueDate" class="form-label">Document Issue Datetime</label>
@@ -337,9 +397,10 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary w-100">Let's Do It</button>
+                            <button id="generatePreview" type="button" class="btn btn-primary w-100">Let's Do It</button>
                         </div>
                     </form>
+
                     <script src="assets/js/popper.min.js"></script>
                     <script src="bootstrap/js/bootstrap.min.js"></script>
                 </div>
