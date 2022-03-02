@@ -42,12 +42,12 @@ async function generatePDFBinary(workspaceIdentifier, templateId, mergeData) {
 async function generatePDF(workspaceIdentifier, templateId, mergeData, mergeOptions) {
   const client = await createClient(workspaceIdentifier);
   return new Promise((resolve, reject) => {
-    client.mergeTemplate(templateId, mergeData, mergeOptions, (error, data, response) => {
+    client.mergeTemplate(templateId.toString(), mergeData, mergeOptions, (error, data, response) => {
       if (error) {
         console.log(error)
         reject(error);
       } else {
-        resolve(data);
+        resolve(data.response);
       }
     });
   });
