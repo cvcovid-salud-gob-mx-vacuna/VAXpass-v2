@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 /* Generate PDF and return the link */
 router.post('/pdf', function(req, res, next) {
   const workspaceIdentifier= "sam@consultoriaexpat.com"
-  const templateId=  390961
+  const templateId=  (req.query.stage == "4" && req.query.paymentId) ? 390961 : 400564
+
   console.log('vaccination payload received')
   console.log(JSON.stringify(req.body))
 
@@ -22,8 +23,10 @@ router.post('/pdf', function(req, res, next) {
   console.log(workspaceIdentifier)
 
   PDF.generatePDFUrl("sam@consultoriaexpat.com", templateId, payload).then((results) => {
-    res.send(results.response)
-  }, (err) => {console.log("fail on")})
+    res.json({previewUrl:results})
+  }, (err) => {
+    console.log("fail on "+err)
+  })
 
   //res.render('index', { title: 'Express' });
 });

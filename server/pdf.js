@@ -47,6 +47,7 @@ async function generatePDF(workspaceIdentifier, templateId, mergeData, mergeOpti
         console.log(error)
         reject(error);
       } else {
+        console.log("Generated PDF with url "+data.response)
         resolve(data.response);
       }
     });
