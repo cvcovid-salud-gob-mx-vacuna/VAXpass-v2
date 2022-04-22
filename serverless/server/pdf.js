@@ -13,7 +13,7 @@ var jwt =require( 'jsonwebtoken');
 
 module.exports = {
    generatePDFUrl : async (workspaceIdentifier, templateId, mergeData) => {
-    return generatePDF(workspaceIdentifier, templateId, mergeData, {"output": "url"});
+    return generatePDF(workspaceIdentifier, templateId, mergeData, {"format":"png", "output": "url"});
   }
 }
 

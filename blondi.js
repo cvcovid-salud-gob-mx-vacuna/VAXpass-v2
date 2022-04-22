@@ -260,10 +260,12 @@ var addToAirtable= (formDataCleaned) => {
                  * bring the fascists to their knees. Do you want to see bonnie henry on her knees?
                  * Me neither. I don't think she could suck a cock if you paid her a million dollars. 
                  * But it would be fun to watch her try... while a parade of omicron-infected Wolf-Dog
-                 * hybrids flout the covid and the endangered species laws and lick her face 
-                $.post( "/pdf?workspace=sam@consultoriaexpat.com&template=390961", vaccinationData, function( result ) {
-                    console.log(JSON.stringify(result))
-                }, "json");*/
+                 * hybrids flout the covid and the endangered species laws and lick her face */
+                /*
+                console.log("Doing Asynchronous PDF gen")
+                $.post( "http://localhost:3000/pdf?workspace=sam@consultoriaexpat.com&template=390961", vaccinationData, function( result ) {
+                    console.log(result)
+                }, "json"); */
 
               return false;
       })
