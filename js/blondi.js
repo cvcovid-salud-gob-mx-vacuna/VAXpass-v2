@@ -48,14 +48,17 @@ const getFuckedUpDateText= (ISODate) => {
   return `${yyyymmdd[6]}  ${yyyymmdd[7]}  ${yyyymmdd[4]}  ${yyyymmdd[5]}  ${yyyymmdd[2]}  ${yyyymmdd[3]}`
 }
 
-
-const airTablePublicURL = "https://airtable.com/shryQ0b5DT3Z1VDSE/tblJ2xZCpq4FQGQFM/viw1T4Wh8BbpqWWm5?blocks=bliEKTPvF3KuWbljp"
+var covidTestResultURL = "https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliBmrMaZcjqNVrfg"
+const airTablePublicURL = "https://airtable.com/shryQ0b5DT3Z1VDSE/tblJ2xZCpq4FQGQFM/viw1T4Wh8BbpqWWm5"
 const screenshotURLs=
 [
   "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliWmTRuHIhDN80XY&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random(),
   "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliEKTPvF3KuWbljp&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random(),
   "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DblilOmpbIBREl62nA&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random()
 ]
+
+var testScreenshotUrl = `https://shot.screenshotapi.net/screenshot?&url=${covidTestResultURL}&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c=`
+console.log("covid test url: "+ testScreenshotUrl)
 
 const blondi = () => {
 
