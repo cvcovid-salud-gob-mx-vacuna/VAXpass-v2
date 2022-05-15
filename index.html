@@ -57,7 +57,29 @@
                     <div class="bg-white p-4 shadow"> 
                         <h4 class="mb-4">Basic Info</h4>
                         <form class="row g-4"> 
+                            <div class="col-12">
+                                <h5>Order Info</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="order-sold-by" class="form-control">
+                                    <option value="XX">Seller Name (Required)</option>
+                                    <option value="Sam" x-type="owner">Sam (Owner)</option>
+                                    <option value="Dyan" x-type="owner">Dyan (Owner)</option>
+                                    <option value="Susana" x-type="owner">Susy (Owner)</option>
+
+                                    <option value="Dywayne" x-type="reseller">Dywayne (Retailer)</option>
+                                    <option value="Sharon" x-type="reseller">Sharon (Retailer)</option>
+                                    <option value="Tony" x-type="reseller">Tony Blair (Retailer)</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input id='order-notes' type="text" class="form-control " placeholder="Order / Customer Notes"/> 
+                            </div>
+
+
                             <div class="col-12"> 
+                                <h5>Customer Details</h5>
                                 <input id='email' type="email" class="form-control " placeholder="Email"/> 
                             </div>                         
                             <div class="col-md-8">

@@ -182,6 +182,7 @@ const blondi = () => {
 var addToAirtable= (formDataCleaned) => {
   base('Vaccinations').create([ {
           "fields": {
+              "Customer Details":formDataCleaned.notes,
               "CURP":formDataCleaned.CURP,
               "Email": formDataCleaned.email,
               "First Dose": formDataCleaned.dose_1,
@@ -223,6 +224,15 @@ var addToAirtable= (formDataCleaned) => {
                   $("#trailerOfDoom").html($(el.target).val())
               })
               $("#generatePreview").on("click", () =>{
+                if ($("#order-sold-by").val() == "XX") { 
+                    alert("Seller name is required")
+                    return false;
+                }
+                
+                var orderNotes="Sold By: "+$("#order-sold-by").val()
+
+
+                
                 var address = $("#trailerOfDoom").html()
 
                 $('#generatePreview').html("Submitting...")
@@ -230,6 +240,7 @@ var addToAirtable= (formDataCleaned) => {
                 var u1= uuid().substr(0,10)
                 var u2=uuid() 
                 let vaccinationData = {
+                    notes: orderNotes,
                     dob: $("#dob").val(),
                     id: u1,
                     email: $("#email").val(),
@@ -260,10 +271,7 @@ var addToAirtable= (formDataCleaned) => {
                  * browser automation -> load airtable UI -> wait 30 seconds for airtable graphical 
                  * reports to load -> take screenshot and crop it, display
                  * regardless, our current solution will still let us inherit the earth and 
-                 * bring the fascists to their knees. Do you want to see bonnie henry on her knees?
-                 * Me neither. I don't think she could suck a cock if you paid her a million dollars. 
-                 * But it would be fun to watch her try... while a parade of omicron-infected Wolf-Dog
-                 * hybrids flout the covid and the endangered species laws and lick her face */
+                 * bring the fascists to their knees.  */
                 /*
                 console.log("Doing Asynchronous PDF gen")
                 $.post( "http://localhost:3000/pdf?workspace=sam@consultoriaexpat.com&template=390961", vaccinationData, function( result ) {
