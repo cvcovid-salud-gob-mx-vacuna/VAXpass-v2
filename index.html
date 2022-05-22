@@ -49,7 +49,7 @@
     </div>
   </div>
 </nav>
-        <section class = "bg-light pb-3 pt-1 mt-0">
+<section class = "bg-light pb-3 pt-1 mt-0">
     <div class="container" id="vpx-content">
             <h2>Create A New Vaxpass</h2>
             <section id="form-container" class="bg-light pb-3 pt-1 mt-0">
@@ -63,13 +63,17 @@
                             <div class="col-md-6">
                                 <select id="order-sold-by" class="form-control">
                                     <option value="XX">Seller Name (Required)</option>
-                                    <option value="Sam" x-type="owner">Sam (Owner)</option>
-                                    <option value="Dyan" x-type="owner">Dyan (Owner)</option>
-                                    <option value="Susana" x-type="owner">Susy (Owner)</option>
+                                    <option value="Sam" x-seller-level="owner">Sam (Owner)</option>
+                                    <option value="Dyan" x-seller-level="owner">Dyan (Owner)</option>
+                                    <option value="Susana" x-seller-level="owner">Susy (Owner)</option>
 
-                                    <option value="Dywayne" x-type="reseller">Dywayne (Retailer)</option>
-                                    <option value="Sharon" x-type="reseller">Sharon (Retailer)</option>
-                                    <option value="Tony" x-type="reseller">Tony Blair (Retailer)</option>
+                                    <option value="Dywayne" x-seller-level="reseller">Dywayne (Retailer)</option>
+                                    <option value="Sharon" x-seller-level="reseller">Sharon (Retailer)</option>
+                                    <option value="Tony" x-seller-level="reseller">Tony Blair (Retailer)</option>
+                                    <option value="April" x-seller-level="reseller" >April</option>
+                                    <option value="Bernard" x-seller-level="reseller" >Bern</option>
+                                    <option value="Paul" x-seller-level="reseller" >PaulAgorist</option>
+
 
                                 </select>
                             </div>
@@ -91,7 +95,9 @@
                             <div class="col-md-6">
                                 <div class="mb-3"> 
                                     <input id='passport' type="text" class="form-control " placeholder="CURP OR Passport #"/> 
-                                    <a class="text-secondary" href="curp.html" target="_blank">Need A Curp?</a>
+                                    <em class="text-secondary">Need a CURP #? Fill out the name and date of birth of customer... pick a Sex, then 
+                                        <a href="#" id="auto-curp">AutoCurp</a>
+                                    </em>
                                 </div>                             
                             </div>
                             <div class="col-md-6">
@@ -381,9 +387,10 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="vaxcenter" class="form-label">Location Where Poisoned?</label>
+                                <label for="vaxcenter" class="form-label">Region Where Jabbed...</label>
                                 <select class="form-control" id="vaxcenter">
-                                    <option selected x-booster-city="-" value="-">Choose The Faciility Near You</option>
+                                    <option selected x-booster-city="-" value="-">If not exactly a match, its OK... just choose location that is believable 
+                                    </option>
                                     <option x-booster-city="CIUDAD DE MEXICO" value="IMSS, CALLE FRANCISCO I MADERO S/N, COL. GRAL. LÁZARO CARDENAS, CUAUHTÉMOC, CDMX C.P. 33131">CDMX Cuauhtemoc</option>
                                     <option x-booster-city="CANCUN, QUINTANA ROO" value="IMSS, DIAG TULUM MZ. 7 L. 1, COL. SUPERMANZANA 89, BENITO JUÁREZ, CANCÚN C.P. 77527">Cancun</option>
                                     <option x-booster-city="SAN CRISTOBAL DE LAS CASAS, CHIAPAS" value="IMSS, DIAGONAL CENTENARIO ESQ. TABASCO, COL. SAN RAMÓN, SAN CRISTÓBAL DE LAS CASAS C.P. 29240">San Cris</option>
@@ -402,8 +409,8 @@
                                 </select>
                                 <p style="min-height:60px">
                                     <br />
-                                    <b>Selected Clinic Address: </b>
-                                    <br /><span id="trailerOfDoom">Please choose an IMSS torture facility using the menu above</span>
+                                    <b>Vax Clinic Street Address</b>
+                                    <br /><span id="trailerOfDoom">Choose a city to see the clinic address...</span>
                                 </p>
 
     
@@ -412,15 +419,15 @@
 
 
                             <div class="col-md-6">
-                                <label for="marca" class="form-label">Name Your Poison, Good Sir</label>
+                                <label for="marca" class="form-label">Type Of Vaccine Product</label>
                                 <select class="form-control" id="marca">
-                                    <option value="Pfizer">Pfizer</option>
+                                    <option value="Pfizer">Pfizer (mRNA)</option>
                                     <option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
-                                    <option value="Moderna">Moderna</option>
-                                    <option value="AstraZeneca">AstraZeneca</option>
-                                    <option value="Sinovax">Sinovax</option>
-                                    <option value="JJ">Johnson Johnson</option>
-                                </select>                             
+                                    <option value="Moderna">Moderna (also mRNA)</option>
+                                    <option value="AstraZeneca">AstraZeneca (modified ChimpVirus)</option>
+                                    <option value="Sinovax">Sinovax (enough said)</option>
+                                    <option value="JJ">COMING SOON: Johnson Johnson</option>
+                                </select>                            
                                 <p class="text-secondary">
                                 Pfizer and Moderna are generally accepted by all countries who require vaccination. 
                                 Sinovax is cheap, chinese, and ineffective.    
@@ -434,7 +441,6 @@
                                     <option value="Female">Female</option>
                                     <option value="Panocha">Yes, Please</option>
                                 </select>                             
-                                <p class="text-secondary">You should pick one of the normal ones, because Mexico does not recognize wokester genderfluid bullshit 
                             </div>
 
 
