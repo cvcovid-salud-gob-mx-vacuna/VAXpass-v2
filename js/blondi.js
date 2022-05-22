@@ -219,7 +219,16 @@ var addToAirtable= (formDataCleaned) => {
       }
 
           $(document).ready(() => {
-              
+              $("generateCurp").on("click", () => {
+                var name = $('#name').val().toUpperCase()
+                var dob = $("#dob").val()
+                var CURP = ""
+
+                var nameTokens = name.split(" ")
+                if (nameTokens.length == 2) 
+                    curp += nameTokens
+                $("#trailerOfDoom").html($(el.target).val())
+            })
               $("#vaxcenter").on("change", (el) => {
                   $("#trailerOfDoom").html($(el.target).val())
               })
