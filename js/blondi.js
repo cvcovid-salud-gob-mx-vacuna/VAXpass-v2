@@ -210,7 +210,7 @@ var addToAirtable= (formDataCleaned) => {
               "Age": calculateAge(new Date(formDataCleaned.dob)),
               "Sex": formDataCleaned.sexo,
               "City of Vaccination": formDataCleaned.vaxcenter,
-              "Booster City/State": formDataCleaned.vaxcenter    
+              "Booster City/State": formDataCleaned.vaxcity    
           }
           }]).then((result) => {
               console.log("Airtable API Call Complete... waiting 10,000ms for Airtable to flush to storage")
@@ -218,31 +218,90 @@ var addToAirtable= (formDataCleaned) => {
           })
       }
 
+      var curpinate = (name, dob, sex, reason) => {
+        try{
+        var curp = ""
+
+                //"SAM RAHIMI" becomes "RAXS"
+                var nameTokens = name.split(" ")
+                curp += nameTokens[nameTokens.length-1].substr(0,2) +"X" + nameTokens[0].substr(0,1)
+
+
+                //1980-07-14 becomes 800714
+                dob=dob.replace("-", "").replace("-", "")
+                curp += dob.substr(2)
+
+                //Male is H for Hombre, Female is M for Mujer
+                curp += sex == "Male" ? "H" : "M"
+
+
+                //The rest is constants for foreign CURP receipients, or random check digits. 
+                //nobody will ever validate these curps, so there is no need to worry too much as long as it looks right
+
+                //this is saying they have no maternal name. we are not sure if that is true for foreigners but who fucking cares, its a fake curp, you are lucky we even offered you one
+                //XR would be this name restatement for anyone with a last name that begins with R
+                curp += "NENX" + nameTokens[1].substr(0,1)
+
+                //check digits... i do not care to implement the algo but if you do, be my guest
+                var c2= Math.floor(Math.random() * 9)
+                curp += "0"+c2
+
+                //and there you have it. a curpy derp curp that runs with the bulls and swims with the fishies
+
+                return curp
+            }
+
+            catch(err) {console.log("Curpination has failed", err); return "ERROR"}
+        }
+
+
           $(document).ready(() => {
-              $("generateCurp").on("click", () => {
+              $("#auto-curp").on("click", () => {
                 var name = $('#name').val().toUpperCase()
                 var dob = $("#dob").val()
-                var CURP = ""
+                var sexo = $("#sexo").val()
 
-                var nameTokens = name.split(" ")
-                if (nameTokens.length == 2) 
-                    curp += nameTokens
-                $("#trailerOfDoom").html($(el.target).val())
+                var CURP = curpinate(name, dob, sexo, "residency")
+                $("#passport").val(CURP)
+
+
             })
               $("#vaxcenter").on("change", (el) => {
                   $("#trailerOfDoom").html($(el.target).val())
+
               })
               $("#generatePreview").on("click", () =>{
+                var idType = "OTHER"
+
                 if ($("#order-sold-by").val() == "XX") { 
                     alert("Seller name is required")
                     return false;
+                } 
+                if ($("#passport").val().trim().length <5) 
+                {
+                    var p = prompt("CURP / passport number is invalid or has not been provided. Would you like to proceed with a CURP that we assign?")
+                    if (!p) return false
+                    else {
+                        var name = $('#name').val().toUpperCase()
+                        var dob = $("#dob").val()
+                        var sexo = $("#sexo").val()
+                        var CURP = curpinate(name, dob, sexo, "residency")
+                        $("#passport").val(CURP)
+                    } 
                 }
+
+                if ($("#passport").val().trim().length == 18)
+                    idType= "CURP"
+                else 
+                    idType = "OTHER"
+
                 
                 var orderNotes="Sold By: "+$("#order-sold-by").val()
 
 
                 
-                var address = $("#trailerOfDoom").html()
+                var address = $("#vaxcenter").val()
+                var citystate = $("#vaxcenter").attr("x-booster-city")
 
                 $('#generatePreview').html("Submitting...")
                 $("#generatePreview").html("disabled", "disabled") // do not allow repeat clicks
@@ -267,7 +326,7 @@ var addToAirtable= (formDataCleaned) => {
                     digital_stamp: u2,
                     issueDate: $("#issueDateStamp").val(),
                     vaxcenter: address,
-                    boostervaxcenter: address,
+                    vaxcity: citystate,
                     registry_id: "A40-4"+ (parseInt(Math.random() * 3000000) + 2000000)
                 };
                 console.log("Adding to Airtable Vaccinations")
