@@ -57,6 +57,7 @@ const screenshotURLs=
   "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DblilOmpbIBREl62nA&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random()
 ]
 
+console.log(screenshotURLs[0])
 var testScreenshotUrl = `https://shot.screenshotapi.net/screenshot?&url=${covidTestResultURL}&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c=`
 console.log("covid test url: "+ testScreenshotUrl)
 
@@ -77,7 +78,7 @@ const blondi = () => {
                               <span class="visually-hidden">Loading...</span>
                           </div>
                       </div>
-                      <img x-spinner="document1" class="documento img-fluid" src="${screenshotURLs[0]}&token=JPPFM7E-J4K4RBM-P6WNYF1-A71X9AA" />
+                      <img x-spinner="document1" class="documento img-fluid" src="${screenshotURLs[0]}&token=GEF04SM-K0BMW08-P3FRANH-13EPE8W" />
                   
                       <p>The most important document in the package for the majority of travelers, the certificado is otherwise known as a vaxpass, and provides information about your first 2 doses, along with the number from your ID and a special QR code.
                          When scanned, this code launches a special app that loads the encrypted data in the code, decodes it, and displays some of your information to show the pass is valid
@@ -92,7 +93,7 @@ const blondi = () => {
                               <span class="visually-hidden">Loading...</span>
                           </div>
                           </div>
-                          <img x-spinner="document2" class="documento img-fluid" src="${screenshotURLs[1]}&token=JPPFM7E-J4K4RBM-P6WNYF1-A71X9AA" />
+                          <img x-spinner="document2" class="documento img-fluid" src="${screenshotURLs[1]}&token=GEF04SM-K0BMW08-P3FRANH-13EPE8W" />
                           
                           <p>These are the receipts you received at the official IMSS vax center, located at the address
                           indicated on these cards. Since these were given to you on paper, you may wish to PRINT this 
@@ -112,7 +113,7 @@ const blondi = () => {
                           </div>
                           </div>
 
-                          <img x-spinner="document3" class="documento img-fluid" src="${screenshotURLs[2]}&token=JPPFM7E-J4K4RBM-P6WNYF1-A71X9AA" />
+                          <img x-spinner="document3" class="documento img-fluid" src="${screenshotURLs[2]}&token=GEF04SM-K0BMW08-P3FRANH-13EPE8W" />
                       
                           <p>The booster (dose 3 documents) are a slightly different style than the docs used for dose 1 and 2
                           Clearly the Mexicans decided to streamline the process, as the booster 
@@ -188,13 +189,13 @@ var addToAirtable= (formDataCleaned) => {
               "First Dose": formDataCleaned.dose_1,
               "Second Dose": formDataCleaned.dose_2,
               "Booster Date": formDataCleaned.dose_3,
-              "Dose 1 Date Text": getFuckedUpDateText(formDataCleaned.dose_1),
+              "Dose 1 Date Text": formDataCleaned.dose_1 != "No Se Aplica" ? getFuckedUpDateText(formDataCleaned.dose_1) : "",
               "Dose 2 Date Text": getFuckedUpDateText(formDataCleaned.dose_2),
-              "Booster 1 Date Text": getFuckedUpDateText(formDataCleaned.dose_3),
+              "Booster 1 Date Text":  getFuckedUpDateText(formDataCleaned.dose_3),
               "Full Name": formDataCleaned.full_name,
               "Vaccine Type": formDataCleaned.marca,
               "Booster Type": formDataCleaned.marca,
-              "First Dose Lot":formDataCleaned.lot_1,
+              "First Dose Lot":formDataCleaned.dose_1 != "No Se Aplica" ? formDataCleaned.lot_1 : "No Se Aplica",
               "Second Dose Lot": formDataCleaned.lot_2,
               "Booster 1 Lot": formDataCleaned.lot_3,
               "Issue Date": formDataCleaned.issueDate,
@@ -270,6 +271,21 @@ var addToAirtable= (formDataCleaned) => {
                   $("#trailerOfDoom").html($(el.target).val())
 
               })
+
+              $("#marca").on("change", (el) => {
+                if ($(el.target).val() == "Janssen")
+                {
+                    $('#dose1date').val("No Se Aplica")
+                    $('#dose1date').attr("disabled", "disabled")
+                } else {
+                    $('#dose1date').removeAttr("disabled")
+                    if ($("#dose1date").val() == "No Se Aplica")
+                        $("#dose1date").val("yyyy-mm-dd")
+                }
+
+              })
+
+
               $("#generatePreview").on("click", () =>{
                 var idType = "OTHER"
 
@@ -301,7 +317,7 @@ var addToAirtable= (formDataCleaned) => {
 
                 
                 var address = $("#vaxcenter").val()
-                var citystate = $("#vaxcenter").attr("x-booster-city")
+                var citystate = $("#vaxcenter option:selected").attr("x-booster-city")
 
                 $('#generatePreview').html("Submitting...")
                 $("#generatePreview").html("disabled", "disabled") // do not allow repeat clicks
@@ -318,7 +334,7 @@ var addToAirtable= (formDataCleaned) => {
                     dose_1: $('#dose1date').val(),
                     dose_2: $('#dose2date').val(),
                     dose_3: $('#dose3date').val(),
-                    lot_1:'FM' + getRandomLot(),
+                    lot_1: 'FM' + getRandomLot(),
                     lot_2: 'FM' + getRandomLot(),
                     lot_3: 'LK' + getRandomLot(),
                     sexo: $("#sexo").val(),
