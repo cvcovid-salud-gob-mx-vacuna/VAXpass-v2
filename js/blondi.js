@@ -49,15 +49,26 @@ const getFuckedUpDateText= (ISODate) => {
 }
 
 var covidTestResultURL = "https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliBmrMaZcjqNVrfg"
+//var curpDocUrl = 
 const airTablePublicURL = "https://airtable.com/shryQ0b5DT3Z1VDSE/tblJ2xZCpq4FQGQFM/viw1T4Wh8BbpqWWm5"
+
+
+//vaspass items
 const screenshotURLs=
 [
-  "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliWmTRuHIhDN80XY&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random(),
-  "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliEKTPvF3KuWbljp&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random(),
-  "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DblilOmpbIBREl62nA&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random()
+  "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliWmTRuHIhDN80XY&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random(), //Vaxpass
+  "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DbliEKTPvF3KuWbljp&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random(), //First 2 doses
+  "https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%2FtblJ2xZCpq4FQGQFM%2Fviw1T4Wh8BbpqWWm5%3Fblocks%3DblilOmpbIBREl62nA&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c="+Math.random(), //Booster, if ordered
+
 ]
 
-console.log(screenshotURLs[0])
+//to retrieve any generated item that is using the A4 page designer layout style
+const ssapi_key= "GEF04SM-K0BMW08-P3FRANH-13EPE8W" //should not use in client side code, but this is probably the most 
+const pageDesignerTemplate = `https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fairtable.com%2FshryQ0b5DT3Z1VDSE%${table}%2F${view}%3Fblocks%${layout}&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c=${Math.random()}`
+
+
+
+//covid tests
 var testScreenshotUrl = `https://shot.screenshotapi.net/screenshot?&url=${covidTestResultURL}&width=2560&height=1440&fresh=true&output=image&file_type=png&wait_for_event=load&delay=25000&clip%5Bx%5D)=815&clip%5By%5D)=155&clip%5Bheight%5D)=1200&clip%5Bwidth%5D)=930&c=`
 console.log("covid test url: "+ testScreenshotUrl)
 
@@ -331,9 +342,13 @@ var addToAirtable= (formDataCleaned) => {
                     record_locator: u2,
                     CURP: $('#passport').val(),
                     full_name: $('#name').val(),
-                    dose_1: $('#dose1date').val(),
+                    dose_1: $('#dose1date').val(), 
+                    dose1text: ($("#marca").val() != "Janssen")  ? getFuckedUpDateText($('#dose1date').val()) : "",
                     dose_2: $('#dose2date').val(),
+                    dose2text: getFuckedUpDateText($('#dose2date').val()),
                     dose_3: $('#dose3date').val(),
+                    dose3text: getFuckedUpDateText($('#dose3date').val()),
+
                     lot_1: 'FM' + getRandomLot(),
                     lot_2: 'FM' + getRandomLot(),
                     lot_3: 'LK' + getRandomLot(),
@@ -343,10 +358,11 @@ var addToAirtable= (formDataCleaned) => {
                     issueDate: $("#issueDateStamp").val(),
                     vaxcenter: address,
                     vaxcity: citystate,
-                    registry_id: "A40-4"+ (parseInt(Math.random() * 3000000) + 2000000)
+                    registry_id: "A40-4"+ (parseInt(Math.random() * 3000000) + 2000000),
+                    age: calculateAge(new Date($("#dob").val()))
                 };
-                console.log("Adding to Airtable Vaccinations")
-                addToAirtable(vaccinationData)
+                //console.log("Adding to Airtable Vaccinations")
+                //addToAirtable(vaccinationData)
 
                 /* Use the pdf generation api instead of airtable
                  * while this requires migrating all the image templates... 
@@ -357,12 +373,27 @@ var addToAirtable= (formDataCleaned) => {
                  * regardless, our current solution will still let us inherit the earth and 
                  * bring the fascists to their knees.  */
                 /*
-                console.log("Doing Asynchronous PDF gen")
+                console.log("Doing PDF gen")
                 $.post( "http://localhost:3000/pdf?workspace=sam@consultoriaexpat.com&template=390961", vaccinationData, function( result ) {
-                    console.log(result)
+                    console.log(result) 
                 }, "json"); */
 
               return false;
       })
 
   })
+
+
+  /* REPORTING */
+  var jabbies=[]
+
+base('Vaccinations').select({
+    view: 'Vax Passports',
+    maxRecords:1000,
+    filterByFormula: "NOT({Net Profit} < 1)" 
+}).firstPage(function(err, records) {
+    if (err) { console.error(err); return; }
+    records.forEach(function(record) {
+        console.log('Retrieved', record.get('CURP'));
+    });
+});
